@@ -9,7 +9,7 @@ public class Client
 
     public Client(string name, string email, string phone, DateTime createdAt, DateTime updatedAt)
     {
-        Id =
+        Id = Ulid.NewUlid().ToString();
         Name = name;
         Email = email;
         Phone = phone;

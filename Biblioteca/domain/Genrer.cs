@@ -5,7 +5,7 @@ public class Genrer
     public DateTime UpdatedAt { get; set; }
     public string Value { get; set; }
 
-    public Genrer(string id, DateTime createdAt, DateTime updatedAt, string value)
+    public Genrer(DateTime createdAt, DateTime updatedAt, string value)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = createdAt;

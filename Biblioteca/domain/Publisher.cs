@@ -5,7 +5,7 @@ public class Publisher
     public DateTime UpdatedAt { get; set; }
     public string Name { get; set; }
 
-    public Publisher(string id, DateTime createdAt, DateTime updatedAt, string name)
+    public Publisher(DateTime createdAt, DateTime updatedAt, string name)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = createdAt;

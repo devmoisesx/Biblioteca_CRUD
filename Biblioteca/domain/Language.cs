@@ -5,7 +5,7 @@ public class Language
     public DateTime UpdatedAt { get; set; }
     public string Name { get; set; }
 
-    public Language(string id, DateTime createdAt, DateTime updatedAt, string name)
+    public Language(DateTime createdAt, DateTime updatedAt, string name)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = createdAt;

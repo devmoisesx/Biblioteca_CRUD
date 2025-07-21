@@ -13,7 +13,7 @@ public class Catalog
     public string Language_Id { get; set; }
     public bool Is_Foreign { get; set; }
 
-    public Catalog(string id, DateTime createdAt, DateTime updatedAt, string title, string author, int year, int rev, string publisher_id, int pages, string synopsis, string language_id, bool is_foreign)
+    public Catalog(DateTime createdAt, DateTime updatedAt, string title, string author, int year, int rev, string publisher_id, int pages, string synopsis, string language_id, bool is_foreign)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = createdAt;

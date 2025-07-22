@@ -1,19 +1,15 @@
-public class Client
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+using System.ComponentModel.DataAnnotations;
 
-    public Client(string name, string email, string phone, DateTime createdAt, DateTime updatedAt)
-    {
-        Id = Ulid.NewUlid().ToString();
-        Name = name;
-        Email = email;
-        Phone = phone;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+namespace BibliotecaAPI.Models
+{
+    public class Client
+    {   
+        [Key]
+        public string Id { get; set; } = Ulid.NewUlid().ToString();
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

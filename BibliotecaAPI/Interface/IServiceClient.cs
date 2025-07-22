@@ -1,8 +1,13 @@
-public interface IServiceClient
+using BibliotecaAPI.Models;
+
+namespace BibliotecaAPI.Interface
 {
-    void RegisterClient(Client client);
-    Client GetClient(string id);
-    List<Client> GetClients();
-    Client UpdateClient(Client client);
-    Client DeleteClient(string id);
+    public interface IServiceClient
+    {
+        void AddClient(Client client);
+        Client GetClientById(string id);
+        List<Client> GetClients();
+        void UpdateClient(Client client);
+        void DeleteClient(Client client);
+    }
 }

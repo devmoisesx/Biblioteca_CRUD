@@ -21,5 +21,24 @@ namespace BibliotecaAPI.Services
         {
             _storage.AddClient(client);
         }
+        public Client GetClientById(string id)
+        {
+            return _storage.GetClientById(id);
+        }
+
+        public List<Client> GetClients()
+        {
+            return _storage.GetClients();
+        }
+
+        public void UpdateClient(string id, Client client)
+        {
+            _storage.UpdateClient(id, client);
+        }
+
+        public void DeleteClient(string id)
+        {
+            _storage.DeleteClient(id);
+        }
     }
 }

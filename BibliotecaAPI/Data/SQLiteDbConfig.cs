@@ -29,7 +29,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        public static string GetConnectionString()
+        public string GetConnectionString()
         {
             return _connectionString;
         }

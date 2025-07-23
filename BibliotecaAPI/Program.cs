@@ -1,11 +1,18 @@
 using BibliotecaAPI.Data;
+using BibliotecaAPI.Interface;
+using BibliotecaAPI.Services;
+using BibliotecaAPI.Storages;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<SQLiteDbConfig>();
 // Add services to the container.
 
+builder.Services.AddScoped<IServiceClient, ServiceClient>();
+builder.Services.AddScoped<StorageClient>();
+
 builder.Services.AddControllers();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

@@ -25,7 +25,7 @@ namespace BibliotecaAPI.Data
             try
             {
                 _serviceClient.AddClient(cliente);
-                return CreatedAtAction(nameof(GetClients), cliente);
+                return Ok();
             }
             catch (Exception e)
             {
@@ -61,13 +61,13 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<Client> UpdateClient(string id, Client client)
         {
             try
             {
                 _serviceClient.UpdateClient(id, client);
-                return CreatedAtAction(nameof(GetClients), client);
+                return Ok();
             }
             catch (Exception e)
             {
@@ -75,7 +75,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult<Client> DeleteClient(string id)
         {
             try

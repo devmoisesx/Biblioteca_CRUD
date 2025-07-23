@@ -1,18 +1,17 @@
+using System.Globalization;
 using BibliotecaAPI.Data;
 using BibliotecaAPI.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 
 namespace BibliotecaAPI.Storages
 {
     public class StorageClient
     {
-        private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public StorageClient()
+        public StorageClient(SQLiteDbConfig dbConfig) // Recebe o dbConfig
         {
-            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _connectionString = dbConfig.GetConnectionString();
         }
 
         public async void AddClient(Client client)
@@ -23,11 +22,13 @@ namespace BibliotecaAPI.Storages
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
-                    INSERT INTO Transacoes (updated_at, name, email, phone) 
-                    VALUES (@UpdatedAt, @Name, @Email, @Phone);
+                    INSERT INTO Client (id, created_at, updated_at, name, email, phone) 
+                    VALUES (@Id, @CreatedAt, @UpdatedAt, @Name, @Email, @Phone);
                 ";
 
-                command.Parameters.AddWithValue("@UpdatedAt", client.UpdatedAt);
+                command.Parameters.AddWithValue("@Id", Ulid.NewUlid().ToString());
+                command.Parameters.AddWithValue("@CreatedAt", DateTime.Now.TimeOfDay);
+                command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
                 command.Parameters.AddWithValue("@Name", client.Name);
                 command.Parameters.AddWithValue("@Email", client.Email);
                 command.Parameters.AddWithValue("@Phone", client.Phone);
@@ -68,7 +69,7 @@ namespace BibliotecaAPI.Storages
             return getClient;
         }
 
-        public List<Client> GetClients(string id)
+        public List<Client> GetClients()
         {
             List<Client> listClients = new List<Client>();
             Client getClient;
@@ -109,12 +110,11 @@ namespace BibliotecaAPI.Storages
 
                 command.CommandText = @"
                     UPDATE Client
-                    SET updated_at = @UpdatedAt,name = @Name, email = @Email, phone = @Phone,
-                    WHERE id = @Id;
+                    SET updated_at = @UpdatedAt, name = @Name, email = @Email, phone = @Phone WHERE id = @Id;
                 ";
 
                 command.Parameters.AddWithValue("@Id", id);
-                command.Parameters.AddWithValue("@UpdatedAt", client.UpdatedAt);
+                command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
                 command.Parameters.AddWithValue("@Name", client.Name);
                 command.Parameters.AddWithValue("@Email", client.Email);
                 command.Parameters.AddWithValue("@Phone", client.Phone);

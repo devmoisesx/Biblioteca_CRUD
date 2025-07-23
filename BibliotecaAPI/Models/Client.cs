@@ -19,6 +19,16 @@ namespace BibliotecaAPI.Models
             UpdatedAt = DateTime.Now.TimeOfDay;
         }
 
+        public Client(string name, string email, string phone)
+        {
+            Id = Ulid.NewUlid().ToString();
+            CreatedAt = DateTime.Now.TimeOfDay;
+            UpdatedAt = DateTime.Now.TimeOfDay;
+            Name = name;
+            Email = email;
+            Phone = phone;
+        }
+
         public Client(string id, TimeSpan createdAt, TimeSpan updatedAt, string name, string email, string phone)
         {
             Id = id;
@@ -28,5 +38,7 @@ namespace BibliotecaAPI.Models
             Email = email;
             Phone = phone;
         }
+
+        
     }
 }

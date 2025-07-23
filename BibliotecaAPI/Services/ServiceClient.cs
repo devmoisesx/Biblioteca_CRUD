@@ -16,5 +16,10 @@ namespace BibliotecaAPI.Services
         {
             _storage = storage;
         }
+
+        public void AddClient(Client client)
+        {
+            _storage.AddClient(client);
+        }
     }
 }

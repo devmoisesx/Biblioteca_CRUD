@@ -8,6 +8,6 @@ namespace BibliotecaAPI.Interface
         Task<Client> GetClientByIdAsync(string id);
         Task<List<Client>> GetClientsAsync();
         Task UpdateClientAsync(string id, Client client);
-        TaskScheduler DeleteClientAsync(string id);
+        Task DeleteClientAsync(string id);
     }
 }

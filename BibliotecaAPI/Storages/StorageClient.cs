@@ -68,8 +68,37 @@ namespace BibliotecaAPI.Storages
             return getClient;
         }
 
-        // public List<Client> GetClients()
-        // {
+        public List<Client> GetClients(string id)
+        {
+            List<Client> listClients = new List<Client>();
+            Client getClient;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"
+                    SELECT * FROM Client;
+                ";
+
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        getClient = new Client(
+                            reader.GetString(0),
+                            reader.GetTimeSpan(1),
+                            reader.GetTimeSpan(2),
+                            reader.GetString(3),
+                            reader.GetString(4),
+                            reader.GetString(5)
+                        );
+                        listClients.Add(getClient);
+                    }
+                }
+            }
+            return listClients;
+        }
             
         // }
 

@@ -1,5 +1,6 @@
 using BibliotecaAPI.Data;
 using BibliotecaAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 
 namespace BibliotecaAPI.Storages
@@ -35,10 +36,37 @@ namespace BibliotecaAPI.Storages
             }
         }
 
-        // public Client GetClientById(string id)
-        // {
-        //     return Client
-        // }
+        public Client GetClientById(string id)
+        {
+            Client getClient = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"
+                    SELECT * FROM Client WHERE id = @Id;
+                ";
+
+                command.Parameters.AddWithValue("@Id", id);
+
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        getClient = new Client(
+                            reader.GetString(0),
+                            reader.GetTimeSpan(1),
+                            reader.GetTimeSpan(2),
+                            reader.GetString(3),
+                            reader.GetString(4),
+                            reader.GetString(5)
+                        );
+                    }
+                }
+            }
+            return getClient;
+        }
 
         // public List<Client> GetClients()
         // {

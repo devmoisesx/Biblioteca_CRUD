@@ -4,10 +4,10 @@ namespace BibliotecaAPI.Interface
 {
     public interface IServiceClient
     {
-        void AddClient(Client client);
-        Client GetClientById(string id);
-        List<Client> GetClients();
-        void UpdateClient(string id, Client client);
-        void DeleteClient(string id);
+        Task AddClientAsync(Client client);
+        Task<Client> GetClientByIdAsync(string id);
+        Task<List<Client>> GetClientsAsync();
+        Task UpdateClientAsync(string id, Client client);
+        TaskScheduler DeleteClientAsync(string id);
     }
 }

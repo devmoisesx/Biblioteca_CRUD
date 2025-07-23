@@ -26,11 +26,20 @@ namespace BibliotecaAPI.Models
             UpdatedAt = DateTime.Now.TimeOfDay;
             Name = name;
             Email = email;
-            Phone = phone;
+            Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
         }
 
         public Client(string id, TimeSpan createdAt, TimeSpan updatedAt, string name, string email, string phone)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("ID do cliente não pode ser nulo ou vazio.", nameof(id));
+            }
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Nome do cliente não pode ser nulo ou vazio.", nameof(name));
+            }
+
             Id = id;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;

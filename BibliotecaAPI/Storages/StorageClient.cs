@@ -1,11 +1,12 @@
 using System.Globalization;
 using BibliotecaAPI.Data;
+using BibliotecaAPI.Interface.Storages;
 using BibliotecaAPI.Models;
 using Microsoft.Data.Sqlite;
 
 namespace BibliotecaAPI.Storages
 {
-    public class StorageClient
+    public class StorageClient : IStorageClient
     {
         private readonly string _connectionString;
 
@@ -14,7 +15,7 @@ namespace BibliotecaAPI.Storages
             _connectionString = dbConfig.GetConnectionString();
         }
 
-        public async void AddClient(Client client)
+        public  async Task AddClientAsync(Client client)
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
@@ -37,10 +38,10 @@ namespace BibliotecaAPI.Storages
             }
         }
 
-        public Client GetClientById(string id)
+        public async Task<Client> GetClientByIdAsync(string id)
         {
             Client getClient = null;
-            using (var connection = new SqliteConnection(_connectionString))
+            await using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -69,11 +70,11 @@ namespace BibliotecaAPI.Storages
             return getClient;
         }
 
-        public List<Client> GetClients()
+        public async Task<List<Client>> GetClientsAsync()
         {
             List<Client> listClients = new List<Client>();
             Client getClient;
-            using (var connection = new SqliteConnection(_connectionString))
+            await using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -101,9 +102,9 @@ namespace BibliotecaAPI.Storages
             return listClients;
         }
 
-        public void UpdateClient(string id, Client client)
+        public async Task UpdateClientAsync(string id, Client client)
         {
-            using (var connection = new SqliteConnection(_connectionString))
+            await using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -123,9 +124,9 @@ namespace BibliotecaAPI.Storages
             }
         }
 
-        public void DeleteClient(string id)
+        public async Task DeleteClientAsync(string id)
         {
-            using (var connection = new SqliteConnection(_connectionString))
+            await using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

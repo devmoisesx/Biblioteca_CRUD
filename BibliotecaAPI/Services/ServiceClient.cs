@@ -17,28 +17,28 @@ namespace BibliotecaAPI.Services
             _storage = storage;
         }
 
-        public void AddClient(Client client)
+        public async Task AddClientAsync(Client client)
         {
-            _storage.AddClient(client);
+           await _storage.AddClientAsync(client);
         }
-        public Client GetClientById(string id)
+        public async Task<Client> GetClientByIdAsync(string id)
         {
-            return _storage.GetClientById(id);
-        }
-
-        public List<Client> GetClients()
-        {
-            return _storage.GetClients();
+            return await _storage.GetClientByIdAsync(id);
         }
 
-        public void UpdateClient(string id, Client client)
+        public async Task<List<Client>> GetClientsAsync()
         {
-            _storage.UpdateClient(id, client);
+            return await _storage.GetClientsAsync();
         }
 
-        public void DeleteClient(string id)
+        public async Task UpdateClientAsync(string id, Client client)
         {
-            _storage.DeleteClient(id);
+            await _storage.UpdateClientAsync(id, client);
+        }
+
+        public async Task DeleteClientAsync(string id)
+        {
+            await _storage.DeleteClientAsync(id);
         }
     }
 }

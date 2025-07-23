@@ -99,18 +99,47 @@ namespace BibliotecaAPI.Storages
             }
             return listClients;
         }
-            
-        // }
 
-        // public void UpdateClient(Client client)
-        // {
-            
-        // }
+        public void UpdateClient(string id, Client client)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
 
-        // public void DeleteClient(Client client)
-        // {
-            
-        // }
+                command.CommandText = @"
+                    UPDATE Client
+                    SET updated_at = @UpdatedAt,name = @Name, email = @Email, phone = @Phone,
+                    WHERE id = @Id;
+                ";
+
+                command.Parameters.AddWithValue("@Id", id);
+                command.Parameters.AddWithValue("@UpdatedAt", client.UpdatedAt);
+                command.Parameters.AddWithValue("@Name", client.Name);
+                command.Parameters.AddWithValue("@Email", client.Email);
+                command.Parameters.AddWithValue("@Phone", client.Phone);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteClient(string id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"
+                    DELETE FROM Client
+                    WHERE id = @Id;
+                ";
+
+                command.Parameters.AddWithValue("@Id", id);
+
+                command.ExecuteNonQuery();
+            }
+        }
 
     }
 }

@@ -7,7 +7,7 @@ namespace BibliotecaAPI.Interface
         void AddClient(Client client);
         Client GetClientById(string id);
         List<Client> GetClients();
-        void UpdateClient(Client client);
-        void DeleteClient(Client client);
+        void UpdateClient(string id, Client client);
+        void DeleteClient(string id);
     }
 }

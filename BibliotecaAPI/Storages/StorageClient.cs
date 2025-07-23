@@ -19,7 +19,7 @@ namespace BibliotecaAPI.Storages
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
@@ -43,7 +43,7 @@ namespace BibliotecaAPI.Storages
             Client getClient = null;
             await using (var connection = new SqliteConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
@@ -52,9 +52,9 @@ namespace BibliotecaAPI.Storages
 
                 command.Parameters.AddWithValue("@Id", id);
 
-                using (SqliteDataReader reader = command.ExecuteReader())
+                await using (SqliteDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         getClient = new Client(
                             reader.GetString(0),
@@ -76,16 +76,16 @@ namespace BibliotecaAPI.Storages
             Client getClient;
             await using (var connection = new SqliteConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
                     SELECT * FROM Client;
                 ";
 
-                using (SqliteDataReader reader = command.ExecuteReader())
+                await using (SqliteDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         getClient = new Client(
                             reader.GetString(0),
@@ -106,7 +106,7 @@ namespace BibliotecaAPI.Storages
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
@@ -120,7 +120,7 @@ namespace BibliotecaAPI.Storages
                 command.Parameters.AddWithValue("@Email", client.Email);
                 command.Parameters.AddWithValue("@Phone", client.Phone);
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
@@ -128,7 +128,7 @@ namespace BibliotecaAPI.Storages
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
 
                 command.CommandText = @"
@@ -138,9 +138,8 @@ namespace BibliotecaAPI.Storages
 
                 command.Parameters.AddWithValue("@Id", id);
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
-
     }
 }

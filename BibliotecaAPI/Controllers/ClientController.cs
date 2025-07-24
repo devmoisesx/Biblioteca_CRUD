@@ -29,7 +29,7 @@ namespace BibliotecaAPI.Data
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao requisitar: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
 
@@ -43,7 +43,7 @@ namespace BibliotecaAPI.Data
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao requisitar: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
 
@@ -57,7 +57,7 @@ namespace BibliotecaAPI.Data
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao requisitar: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
 
@@ -71,7 +71,7 @@ namespace BibliotecaAPI.Data
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao requisitar: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
 
@@ -85,7 +85,7 @@ namespace BibliotecaAPI.Data
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao requisitar: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
     }

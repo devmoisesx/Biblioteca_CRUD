@@ -1,5 +1,6 @@
 using BibliotecaAPI.Data;
 using BibliotecaAPI.Interface;
+using BibliotecaAPI.Models;
 using BibliotecaAPI.Services;
 using BibliotecaAPI.Storages;
 
@@ -28,7 +29,7 @@ builder.Services.AddSingleton<SQLiteDbConfig>();
 builder.Services.AddSingleton<StorageClient>();
 builder.Services.AddSingleton<StorageCatalog>();
 
-builder.Services.AddScoped<IServiceClient, ServiceClient>();
+builder.Services.AddScoped<IServiceGeneric<Client>, ServiceClient>();
 builder.Services.AddScoped<ServiceClient>();
 builder.Services.AddScoped<IServiceGeneric<Catalog>, ServiceCatalog>();
 builder.Services.AddScoped<ServiceCatalog>();

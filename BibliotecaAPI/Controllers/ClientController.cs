@@ -12,9 +12,9 @@ namespace BibliotecaAPI.Data
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-        private readonly IServiceClient _serviceClient;
+        private readonly IServiceGeneric<Client> _serviceClient;
 
-        public ClientController(IServiceClient serviceClient)
+        public ClientController(IServiceGeneric<Client> serviceClient)
         {
             _serviceClient = serviceClient;
         }
@@ -24,7 +24,7 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                await _serviceClient.AddClientAsync(cliente);
+                await _serviceClient.AddAsync(cliente);
                 return Ok();
             }
             catch (Exception e)
@@ -38,7 +38,7 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                var client = await _serviceClient.GetClientByIdAsync(id);
+                var client = await _serviceClient.GetByIdAsync(id);
                 return Ok(client);
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                List<Client> clients = await _serviceClient.GetClientsAsync();
+                List<Client> clients = await _serviceClient.GetsAsync();
                 return Ok(clients);
             }
             catch (Exception e)
@@ -66,7 +66,7 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                await _serviceClient.UpdateClientAsync(id, client);
+                await _serviceClient.UpdateAsync(id, client);
                 return Ok();
             }
             catch (Exception e)
@@ -80,7 +80,7 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                await _serviceClient.DeleteClientAsync(id);
+                await _serviceClient.DeleteAsync(id);
                 return Ok();
             }
             catch (Exception e)

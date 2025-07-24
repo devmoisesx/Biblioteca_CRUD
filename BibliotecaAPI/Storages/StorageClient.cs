@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace BibliotecaAPI.Storages
 {
-    public class StorageClient : IStorageClient
+    public class StorageClient : IStorageGeneric<Client>
     {
         private readonly string _connectionString;
 
@@ -15,7 +15,7 @@ namespace BibliotecaAPI.Storages
             _connectionString = dbConfig.GetConnectionString();
         }
 
-        public  async Task AddClientAsync(Client client)
+        public  async Task AddAsync(Client client)
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
@@ -38,7 +38,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
-        public async Task<Client> GetClientByIdAsync(string id)
+        public async Task<Client> GetByIdAsync(string id)
         {
             Client getClient = null;
             await using (var connection = new SqliteConnection(_connectionString))
@@ -70,7 +70,7 @@ namespace BibliotecaAPI.Storages
             return getClient;
         }
 
-        public async Task<List<Client>> GetClientsAsync()
+        public async Task<List<Client>> GetsAsync()
         {
             List<Client> listClients = new List<Client>();
             Client getClient;
@@ -102,7 +102,7 @@ namespace BibliotecaAPI.Storages
             return listClients;
         }
 
-        public async Task UpdateClientAsync(string id, Client client)
+        public async Task UpdateAsync(string id, Client client)
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
@@ -124,7 +124,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
-        public async Task DeleteClientAsync(string id)
+        public async Task DeleteAsync(string id)
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {

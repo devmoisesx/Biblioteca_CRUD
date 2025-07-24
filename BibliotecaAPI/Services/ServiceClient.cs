@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BibliotecaAPI.Interface;
 using BibliotecaAPI.Models;
 using BibliotecaAPI.Storages;
 
 namespace BibliotecaAPI.Services
 {
-    public class ServiceClient : IServiceClient
+    public class ServiceClient : IServiceGeneric<Client>
     {
         private readonly StorageClient _storage;
 
@@ -17,28 +13,28 @@ namespace BibliotecaAPI.Services
             _storage = storage;
         }
 
-        public async Task AddClientAsync(Client client)
+        public async Task AddAsync(Client client)
         {
-           await _storage.AddClientAsync(client);
+           await _storage.AddAsync(client);
         }
-        public async Task<Client> GetClientByIdAsync(string id)
+        public async Task<Client> GetByIdAsync(string id)
         {
-            return await _storage.GetClientByIdAsync(id);
-        }
-
-        public async Task<List<Client>> GetClientsAsync()
-        {
-            return await _storage.GetClientsAsync();
+            return await _storage.GetByIdAsync(id);
         }
 
-        public async Task UpdateClientAsync(string id, Client client)
+        public async Task<List<Client>> GetsAsync()
         {
-            await _storage.UpdateClientAsync(id, client);
+            return await _storage.GetsAsync();
         }
 
-        public async Task DeleteClientAsync(string id)
+        public async Task UpdateAsync(string id, Client client)
         {
-            await _storage.DeleteClientAsync(id);
+            await _storage.UpdateAsync(id, client);
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            await _storage.DeleteAsync(id);
         }
     }
 }

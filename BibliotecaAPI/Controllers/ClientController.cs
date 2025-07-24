@@ -20,72 +20,72 @@ namespace BibliotecaAPI.Data
         }
 
         [HttpPost]
-        public ActionResult<Client> PostCliente(Client cliente)
+        public async Task<ActionResult<Client>> PostCliente(Client cliente)
         {
             try
             {
-                _serviceClient.AddClient(cliente);
+                await _serviceClient.AddClientAsync(cliente);
                 return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao criar transacao: {e.Message}");
+                return BadRequest($"Erro ao requisitar: {e.Message}");
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Client> GetClientById(string id)
+        public async Task<ActionResult<Client>> GetClientById(string id)
         {
             try
             {
-                var client = _serviceClient.GetClientById(id);
+                var client = await _serviceClient.GetClientByIdAsync(id);
                 return Ok(client);
             }
             catch (Exception e)
             {
-                return StatusCode(500, $"Erro interno: {e.Message}");
+                return BadRequest($"Erro ao requisitar: {e.Message}");
             }
         }
 
         [HttpGet]
-        public ActionResult<List<Client>> GetClients()
+        public async Task<ActionResult<List<Client>>> GetClients()
         {
             try
             {
-                List<Client> clients = _serviceClient.GetClients();
+                List<Client> clients = await _serviceClient.GetClientsAsync();
                 return Ok(clients);
             }
             catch (Exception e)
             {
-                return StatusCode(500, $"Erro interno: {e.Message}");
+                return BadRequest($"Erro ao requisitar: {e.Message}");
             }
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Client> UpdateClient(string id, Client client)
+        public async Task<ActionResult<Client>> UpdateClient(string id, Client client)
         {
             try
             {
-                _serviceClient.UpdateClient(id, client);
+                await _serviceClient.UpdateClientAsync(id, client);
                 return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao criar transacao: {e.Message}");
+                return BadRequest($"Erro ao requisitar: {e.Message}");
             }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Client> DeleteClient(string id)
+        public async Task<ActionResult<Client>> DeleteClient(string id)
         {
             try
             {
-                _serviceClient.DeleteClient(id);
+                await _serviceClient.DeleteClientAsync(id);
                 return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest($"Erro ao criar transacao: {e.Message}");
+                return BadRequest($"Erro ao requisitar: {e.Message}");
             }
         }
     }

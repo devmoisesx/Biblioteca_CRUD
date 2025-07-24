@@ -45,7 +45,7 @@ namespace BibliotecaAPI.Models
             UpdatedAt = updatedAt;
             Name = name;
             Email = email;
-            Phone = phone;
+            Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
         }
 
         

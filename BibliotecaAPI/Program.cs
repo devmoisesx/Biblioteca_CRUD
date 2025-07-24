@@ -5,25 +5,37 @@ using BibliotecaAPI.Storages;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<SQLiteDbConfig>();
-// Add services to the container.
+builder.Services.AddOpenApi(options =>
+{
+    options.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
 
-builder.Services.AddScoped<IServiceClient, ServiceClient>();
-builder.Services.AddScoped<StorageClient>();
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new()
+        {
+            Title = "Biblioteca",
+            Version = "V1",
+            Description = "API para gerenciamento de Biblioteca."
+        };
+        return Task.CompletedTask;
+    });
+});
 
 builder.Services.AddControllers();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddSingleton<SQLiteDbConfig>();
 
+builder.Services.AddSingleton<StorageClient>();
+builder.Services.AddSingleton<StorageCatalog>();
+
+builder.Services.AddScoped<IServiceClient, ServiceClient>();
+builder.Services.AddScoped<ServiceClient>();
+builder.Services.AddScoped<IServiceGeneric<Catalog>, ServiceCatalog>();
+builder.Services.AddScoped<ServiceCatalog>();
+
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 using (var scope = app.Services.CreateScope())
 {
@@ -38,6 +50,12 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"Erro crítico ao inicializar o banco de dados: {ex.Message}");
         throw;
     }
+}
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();

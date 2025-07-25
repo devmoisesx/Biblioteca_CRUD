@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BibliotecaAPI.Data
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")]     // /api/client
     public class ClientController : ControllerBase
     {
         private readonly IServiceGeneric<Client> _serviceClient;
@@ -29,7 +29,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]       // /api/client/<id>
         public async Task<ActionResult<Client>> GetClientById(string id)
         {
             try
@@ -43,7 +43,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet]
+        [HttpGet]       // /api/client/
         public async Task<ActionResult<List<Client>>> GetClients()
         {
             try
@@ -57,7 +57,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]       // /api/client/<id>
         public async Task<ActionResult<Client>> UpdateClient(string id, Client client)
         {
             try
@@ -71,7 +71,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]        // /api/client/<id>
         public async Task<ActionResult<Client>> DeleteClient(string id)
         {
             try

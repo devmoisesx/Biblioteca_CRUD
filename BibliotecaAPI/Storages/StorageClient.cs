@@ -9,12 +9,13 @@ namespace BibliotecaAPI.Storages
     {
         private readonly string _connectionString;
 
-        public StorageClient(SQLiteDbConfig dbConfig) // Recebe o dbConfig
+        public StorageClient(SQLiteDbConfig dbConfig)
         {
-            _connectionString = dbConfig.GetConnectionString();
+            _connectionString = dbConfig.GetConnectionString();     // Puxa a string de conexao do Db
         }
 
-        public  async Task AddAsync(Client client)
+        // Metodo para Adicionar uma nova linha na Tabela
+        public async Task AddAsync(Client client)
         {
             await using (var connection = new SqliteConnection(_connectionString))
             {
@@ -37,6 +38,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
+        // Metodo para puxar uma linha da Tabela pelo ID
         public async Task<Client> GetByIdAsync(string id)
         {
             Client getClient = null;
@@ -69,6 +71,7 @@ namespace BibliotecaAPI.Storages
             return getClient;
         }
 
+        // Metodo para puxar todos os dados da Tabela
         public async Task<List<Client>> GetsAsync()
         {
             List<Client> listClients = new List<Client>();
@@ -101,6 +104,7 @@ namespace BibliotecaAPI.Storages
             return listClients;
         }
 
+        // Metodo para atualizar uma linha da Tabela pelo ID
         public async Task UpdateAsync(string id, Client client)
         {
             await using (var connection = new SqliteConnection(_connectionString))
@@ -123,6 +127,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
+        // Metodo para Deletar uma linha da Tabela pelo ID
         public async Task DeleteAsync(string id)
         {
             await using (var connection = new SqliteConnection(_connectionString))

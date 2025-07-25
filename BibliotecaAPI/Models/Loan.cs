@@ -15,6 +15,7 @@ public class Loan
         UpdatedAt = DateTime.Now.TimeOfDay;
     }
 
+    // Construtor para quando instanciar a classe
     public Loan(string client_id, string inventory_id, int days_to_expire, DateTime returned_at)
     {
         Id = Ulid.NewUlid().ToString();
@@ -26,6 +27,7 @@ public class Loan
         Returned_At = returned_at;
     }
 
+    // Construtor usado para quando puxar dados do Db
     public Loan(string id, TimeSpan createdAt, TimeSpan updatedAt, string client_id, string inventory_id, int days_to_expire, DateTime returned_at)
     {
         Id = id;

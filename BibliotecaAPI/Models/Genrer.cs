@@ -12,6 +12,7 @@ public class Genrer
         UpdatedAt = DateTime.Now.TimeOfDay;
     }
 
+    // Construtor para quando instanciar a classe
     public Genrer(string value)
     {
         Id = Ulid.NewUlid().ToString();
@@ -20,6 +21,7 @@ public class Genrer
         Value = value;
     }
 
+    // Construtor usado para quando puxar dados do Db
     public Genrer(string id, TimeSpan createdAt, TimeSpan updatedAt, string value)
     {
         Id = id;

@@ -10,9 +10,10 @@ namespace BibliotecaAPI.Storages
 
         public StorageCatalog(SQLiteDbConfig dbConfig)
         {
-            _connectionString = dbConfig.GetConnectionString();
+            _connectionString = dbConfig.GetConnectionString();     // Puxa a string de conexao do Db
         }
 
+        // Metodo para Adicionar uma nova linha na Tabela
         public async Task AddAsync(Catalog catalog)
         {
             await using (var connection = new SqliteConnection(_connectionString))
@@ -42,6 +43,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
+        // Metodo para puxar uma linha da Tabela pelo ID
         public async Task<Catalog> GetByIdAsync(string id)
         {
             Catalog getCatalog = null;
@@ -80,6 +82,7 @@ namespace BibliotecaAPI.Storages
             return getCatalog;
         }
 
+        // Metodo para puxar todos os dados da Tabela
         public async Task<List<Catalog>> GetsAsync()
         {
             List<Catalog> listCatalog = new List<Catalog>();
@@ -118,6 +121,7 @@ namespace BibliotecaAPI.Storages
             return listCatalog;
         }
 
+        // Metodo para atualizar uma linha da Tabela pelo ID
         public async Task UpdateAsync(string id, Catalog catalog)
         {
             await using (var connection = new SqliteConnection(_connectionString))
@@ -145,6 +149,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
+        // Metodo para Deletar uma linha da Tabela pelo ID
         public async Task DeleteAsync(string id)
         {
             await using (var connection = new SqliteConnection(_connectionString))

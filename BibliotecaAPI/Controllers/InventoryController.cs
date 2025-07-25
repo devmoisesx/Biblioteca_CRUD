@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BibliotecaAPI.Data
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")]     // /api/inventory
     public class InventoryController : ControllerBase
     {
         private readonly IServiceGeneric<Inventory> _serviceInventory;
@@ -28,7 +28,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]       // /api/inventory/<id>
         public async Task<ActionResult<Inventory>> GetInventoryByIdAsync(string id)
         {
             try
@@ -42,7 +42,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet]
+        [HttpGet]       // /api/inventory/
         public async Task<ActionResult<List<Inventory>>> GetInventorysAsync()
         {
             try
@@ -56,7 +56,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]       // /api/inventory/<id>
         public async Task<ActionResult<Inventory>> UpdateInventoryAsync(string id, Inventory inventory)
         {
             try
@@ -70,7 +70,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]        // /api/inventory/<id>
         public async Task<ActionResult<Inventory>> DeleteInventoryAsync(string id)
         {
             try

@@ -10,9 +10,10 @@ namespace BibliotecaAPI.Storages
 
         public StorageInventory(SQLiteDbConfig dbConfig)
         {
-            _connectionString = dbConfig.GetConnectionString();
+            _connectionString = dbConfig.GetConnectionString();     // Puxa a string de conexao do Db
         }
 
+        // Metodo para Adicionar uma nova linha na Tabela
         public async Task AddAsync(Inventory inventory)
         {
             await using (var connection = new SqliteConnection(_connectionString))
@@ -31,11 +32,12 @@ namespace BibliotecaAPI.Storages
                 command.Parameters.AddWithValue("@Condition", inventory.Condition);
                 command.Parameters.AddWithValue("@Is_Avaible", inventory.Is_Avaible);
                 command.Parameters.AddWithValue("@Catalog_Id", inventory.Catalog_Id);
-                
+
                 command.ExecuteNonQuery();
             }
         }
 
+        // Metodo para puxar uma linha da Tabela pelo ID
         public async Task<Inventory> GetByIdAsync(string id)
         {
             Inventory getInventory = null;
@@ -68,6 +70,7 @@ namespace BibliotecaAPI.Storages
             return getInventory;
         }
 
+        // Metodo para puxar todos os dados da Tabela
         public async Task<List<Inventory>> GetsAsync()
         {
             List<Inventory> listInventory = new List<Inventory>();
@@ -100,6 +103,7 @@ namespace BibliotecaAPI.Storages
             return listInventory;
         }
 
+       // Metodo para atualizar uma linha da Tabela pelo ID
         public async Task UpdateAsync(string id, Inventory inventory)
         {
             await using (var connection = new SqliteConnection(_connectionString))
@@ -121,6 +125,7 @@ namespace BibliotecaAPI.Storages
             }
         }
 
+        // Metodo para Deletar uma linha da Tabela pelo ID
         public async Task DeleteAsync(string id)
         {
             await using (var connection = new SqliteConnection(_connectionString))

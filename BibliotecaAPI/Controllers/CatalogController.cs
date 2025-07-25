@@ -5,6 +5,7 @@ namespace BibliotecaAPI.Data
 {
     [ApiController]
     [Route("api/[controller]")]
+    // localhost/api/catalog
     public class CatalogController : ControllerBase
     {
         private readonly IServiceGeneric<Catalog> _serviceCatalog;
@@ -14,7 +15,7 @@ namespace BibliotecaAPI.Data
             _serviceCatalog = serviceCatalog;
         }
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<ActionResult<Catalog>> PostCatalogAsync(Catalog catalog)
         {
             try
@@ -28,7 +29,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]       // /api/catalog/<id>
         public async Task<ActionResult<Catalog>> GetCatalogByIdAsync(string id)
         {
             try
@@ -42,7 +43,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpGet]
+        [HttpGet]       // /api/catalog/
         public async Task<ActionResult<List<Catalog>>> GetCatalogsAsync()
         {
             try
@@ -56,7 +57,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]       // /api/catalog/<id>
         public async Task<ActionResult<Catalog>> UpdateCatalogAsync(string id, Catalog catalog)
         {
             try
@@ -70,7 +71,7 @@ namespace BibliotecaAPI.Data
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]        // /api/catalog/<id>
         public async Task<ActionResult<Catalog>> DeleteCatalogAsync(string id)
         {
             try

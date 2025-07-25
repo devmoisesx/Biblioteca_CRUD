@@ -20,6 +20,7 @@ public class Catalog
         UpdatedAt = DateTime.Now.TimeOfDay;
     }
 
+    // Construtor para quando instanciar a classe
     public Catalog(string title, string author, int year, int rev, string publisher_id, int pages, string synopsis, string language_id, int is_foreign)
     {
         Id = Ulid.NewUlid().ToString();
@@ -36,6 +37,7 @@ public class Catalog
         Is_Foreign = is_foreign;
     }
 
+    // Construtor usado para quando puxar dados do Db
      public Catalog(string id, TimeSpan createdAt, TimeSpan updatedAt, string title, string author, int year, int rev, string publisher_id, int pages, string synopsis, string language_id, int is_foreign)
     {
         Id = id;

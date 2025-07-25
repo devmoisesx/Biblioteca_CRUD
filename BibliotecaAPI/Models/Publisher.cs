@@ -12,6 +12,7 @@ public class Publisher
         UpdatedAt = DateTime.Now.TimeOfDay;
     }
 
+    // Construtor para quando instanciar a classe
     public Publisher(DateTime createdAt, DateTime updatedAt, string name)
     {
         Id = Ulid.NewUlid().ToString();
@@ -20,6 +21,7 @@ public class Publisher
         Name = name;
     }
 
+    // Construtor usado para quando puxar dados do Db
     public Publisher(string id, TimeSpan createdAt, TimeSpan updatedAt, string name)
     {
         Id = id;

@@ -1,6 +1,6 @@
 namespace BibliotecaAPI.Interface
 {
-    public interface IServiceGeneric<TEntity> where TEntity : class
+    public interface IServiceGeneric<TEntity> where TEntity : class     // Interface generica para os Services
     {
         Task AddAsync(TEntity entity);
         Task<TEntity> GetByIdAsync(string id);

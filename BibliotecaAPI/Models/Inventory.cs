@@ -14,6 +14,7 @@ public class Inventory
         UpdatedAt = DateTime.Now.TimeOfDay;
     }
 
+    // Construtor para quando instanciar a classe
     public Inventory(string catalog_id, int condition, int is_Avaible)
     {
         Id = Ulid.NewUlid().ToString();
@@ -24,6 +25,7 @@ public class Inventory
         Is_Avaible = is_Avaible;
     }
 
+    // Construtor usado para quando puxar dados do Db
     public Inventory(string id, TimeSpan createdAt, TimeSpan updatedAt, string catalog_id, int condition, int is_Avaible)
     {
         Id = id;

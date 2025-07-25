@@ -16,6 +16,7 @@ namespace BibliotecaAPI.Models
             UpdatedAt = DateTime.Now.TimeOfDay;
         }
 
+        // Construtor para quando instanciar a classe
         public Client(string name, string email, string phone)
         {
             Id = Ulid.NewUlid().ToString();
@@ -26,17 +27,9 @@ namespace BibliotecaAPI.Models
             Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
         }
 
+        // Construtor usado para quando puxar dados do Db
         public Client(string id, TimeSpan createdAt, TimeSpan updatedAt, string name, string email, string phone)
         {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException("ID do cliente não pode ser nulo ou vazio.", nameof(id));
-            }
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Nome do cliente não pode ser nulo ou vazio.", nameof(name));
-            }
-
             Id = id;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;

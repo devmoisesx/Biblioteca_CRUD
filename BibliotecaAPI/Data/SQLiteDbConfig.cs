@@ -10,13 +10,14 @@ namespace BibliotecaAPI.Data
         public SQLiteDbConfig(IConfiguration configuration)
         {
             _configuration = configuration;
-            string rawConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            string rawConnectionString = _configuration.GetConnectionString("DefaultConnection");       // puxa do arquivo appsettings.json a string para conexao ao SQLite
 
             if (string.IsNullOrEmpty(rawConnectionString))
             {
                 throw new InvalidOperationException("A string de conexão 'DefaultConnection' não foi encontrada em appsettings.json.");
             }
 
+            // Verifica se a string de conexao possui Data Source=, se não possuir, adiciona 
             if (!rawConnectionString.Contains("Data Source="))
             {
                 string dbFileName = rawConnectionString;
@@ -34,6 +35,7 @@ namespace BibliotecaAPI.Data
             return _connectionString;
         }
 
+        // Inicia do Db
         public void InitializeDatabase()
         {
             using (var connection = new SqliteConnection(GetConnectionString()))
@@ -41,11 +43,12 @@ namespace BibliotecaAPI.Data
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                using (var pragmaCommand = new SqliteCommand("PRAGMA foreign_keys = ON;", connection))
+                using (var pragmaCommand = new SqliteCommand("PRAGMA foreign_keys = ON;", connection))      // ativa as Foreign Keys no SQLite
                 {
                     pragmaCommand.ExecuteNonQuery();
                 }
 
+                // Cria a tabela Client
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Client (
                         id char(26) PRIMARY KEY,
@@ -59,6 +62,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Catalog
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Catalog (
                         id char(13) PRIMARY KEY,
@@ -80,6 +84,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Genrer
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Genrer (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -91,6 +96,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela CatalogGenre
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS CatalogGenre (
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -104,6 +110,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Publisher
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Publisher (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -116,6 +123,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Language
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Language (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -128,6 +136,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Inventory
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Inventory (
                         id char(26) PRIMARY KEY,
@@ -143,6 +152,7 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Loan
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Loan (
                         id char(26) PRIMARY KEY,

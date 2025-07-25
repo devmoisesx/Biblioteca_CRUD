@@ -1,10 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace BibliotecaAPI.Models
 {
     public class Client
     {
-        [Key]
         public string Id { get; set; }
         public TimeSpan CreatedAt { get; set; }
         public TimeSpan UpdatedAt { get; set; }

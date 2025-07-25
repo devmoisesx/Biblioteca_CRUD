@@ -1,13 +1,28 @@
 public class Language
 {
     public string Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public TimeSpan CreatedAt { get; set; }
+    public TimeSpan UpdatedAt { get; set; }
     public string Name { get; set; }
 
-    public Language(DateTime createdAt, DateTime updatedAt, string name)
+    public Language()
     {
         Id = Ulid.NewUlid().ToString();
+        CreatedAt = DateTime.Now.TimeOfDay;
+        UpdatedAt = DateTime.Now.TimeOfDay;
+    }
+
+    public Language(string name)
+    {
+        Id = Ulid.NewUlid().ToString();
+        CreatedAt = DateTime.Now.TimeOfDay;
+        UpdatedAt = DateTime.Now.TimeOfDay;
+        Name = name;
+    }
+
+    public Language(string id, TimeSpan createdAt, TimeSpan updatedAt, string name)
+    {
+        Id = id;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Name = name;

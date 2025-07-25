@@ -1,13 +1,28 @@
 public class Genrer
 {
     public string Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public TimeSpan CreatedAt { get; set; }
+    public TimeSpan UpdatedAt { get; set; }
     public string Value { get; set; }
 
-    public Genrer(DateTime createdAt, DateTime updatedAt, string value)
+    public Genrer()
     {
         Id = Ulid.NewUlid().ToString();
+        CreatedAt = DateTime.Now.TimeOfDay;
+        UpdatedAt = DateTime.Now.TimeOfDay;
+    }
+
+    public Genrer(string value)
+    {
+        Id = Ulid.NewUlid().ToString();
+        CreatedAt = DateTime.Now.TimeOfDay;
+        UpdatedAt = DateTime.Now.TimeOfDay;
+        Value = value;
+    }
+
+    public Genrer(string id, TimeSpan createdAt, TimeSpan updatedAt, string value)
+    {
+        Id = id;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Value = value;

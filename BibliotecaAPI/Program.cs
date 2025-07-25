@@ -24,27 +24,28 @@ builder.Services.AddOpenApi(options =>
 
 builder.Services.AddControllers();
 
+// Injeção de Dependência, Cria uma única instância para todo o tempo de vida da aplicação
 builder.Services.AddSingleton<SQLiteDbConfig>();
 
-builder.Services.AddSingleton<StorageClient>();
-builder.Services.AddSingleton<StorageCatalog>();
+builder.Services.AddScoped<StorageClient>();
+builder.Services.AddScoped<StorageCatalog>();
 
+// Injeção de Dependência, Cria uma nova instância para cada solicitação HTTP
 builder.Services.AddScoped<IServiceGeneric<Client>, ServiceClient>();
 builder.Services.AddScoped<ServiceClient>();
 builder.Services.AddScoped<IServiceGeneric<Catalog>, ServiceCatalog>();
 builder.Services.AddScoped<ServiceCatalog>();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-
 var app = builder.Build();
 
+// Inicializa o Db SQLite
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var sqliteDbConfig = services.GetRequiredService<SQLiteDbConfig>();
-        sqliteDbConfig.InitializeDatabase();
+        sqliteDbConfig.InitializeDatabase();    // Cria as Tabelas caso não tenha
     }
     catch (Exception ex)
     {

@@ -70,10 +70,10 @@ namespace BibliotecaAPI.Storages
                             reader.GetString(4),
                             reader.GetInt16(5),
                             reader.GetInt32(6),
-                            reader.GetString(7),
+                            reader.GetInt32(7),
                             reader.GetInt32(8),
                             reader.GetString(9),
-                            reader.GetString(10),
+                            reader.GetInt32(10),
                             reader.GetInt16(11)
                         );
                     }
@@ -108,10 +108,10 @@ namespace BibliotecaAPI.Storages
                             reader.GetString(4),
                             reader.GetInt16(5),
                             reader.GetInt32(6),
-                            reader.GetString(7),
+                            reader.GetInt32(7),
                             reader.GetInt32(8),
                             reader.GetString(9),
-                            reader.GetString(10),
+                            reader.GetInt32(10),
                             reader.GetInt16(11)
                         );
                         listCatalog.Add(getCatalog);

@@ -1,6 +1,7 @@
 using BibliotecaAPI.Interface;
 using BibliotecaAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace BibliotecaAPI.Data
 {
@@ -9,6 +10,11 @@ namespace BibliotecaAPI.Data
     public class ClientController : ControllerBase
     {
         private readonly IServiceGeneric<Client> _serviceClient;
+
+        private static readonly Serilog.ILogger log = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("logs.txt")
+            .CreateLogger();
 
         public ClientController(IServiceGeneric<Client> serviceClient)
         {
@@ -20,12 +26,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
+                log.Information("Post Client request Initialized.");
                 await _serviceClient.AddAsync(cliente);
+                log.Information("Post Client request completed successfully");
                 return Ok();
             }
             catch (Exception e)
             {
+                log.Error($"Post Client request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
+            }
+            finally
+            {
+                log.Information("Request completed.");
             }
         }
 
@@ -34,12 +47,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
+                log.Information("Get Client By Id request Initialized.");
                 var client = await _serviceClient.GetByIdAsync(id);
+                log.Information("Get Client By Id request completed successfully");
                 return Ok(client);
             }
             catch (Exception e)
             {
+                log.Error($"Get Client By Id request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
+            }
+            finally
+            {
+                log.Information("Request completed.");
             }
         }
 
@@ -48,12 +68,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
+                log.Information("Get Clients request Initialized.");
                 List<Client> clients = await _serviceClient.GetsAsync();
+                log.Information("Get Clients request completed successfully.");
                 return Ok(clients);
             }
             catch (Exception e)
             {
+                log.Error($"Get Clients request error: {e.Message}.");
                 return BadRequest($"Erro: {e.Message}");
+            }
+            finally
+            {
+                log.Information("Request completed.");
             }
         }
 
@@ -62,12 +89,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
+                log.Information("Update Client request Initialized.");
                 await _serviceClient.UpdateAsync(id, client);
+                log.Information("Update Client request completed successfully.");
                 return Ok();
             }
             catch (Exception e)
             {
+                log.Error($"Update Client request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
+            }
+            finally
+            {
+                log.Information("Request completed.");
             }
         }
 
@@ -76,12 +110,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
+                log.Information("Delete Client request Initialized.");
                 await _serviceClient.DeleteAsync(id);
+                log.Information("Delete Client request completed successfully.");
                 return Ok();
             }
             catch (Exception e)
             {
+                log.Error($"Delete Client request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
+            }
+            finally
+            {
+                log.Information("Request completed.");
             }
         }
     }

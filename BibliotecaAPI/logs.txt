@@ -1,1 +1,14 @@
 2025-08-15 14:56:21.063 -03:00 [INF] Teste 1 de log
+2025-08-15 15:55:43.222 -03:00 [INF] Inicializando Aplicação.
+2025-08-15 16:02:40.756 -03:00 [INF] Aplicação Finalizada.
+5 15:55:43.340 -03:00 [INF] Enable Foreign Keys.
+2025-08-15 15:56:28.292 -03:00 [INF] Request Initialized.
+2025-08-15 15:56:28.296 -03:00 [INF] Request completed.
+2025-08-15 15:57:19.583 -03:00 [INF] Request Initialized.
+2025-08-15 15:57:19.583 -03:00 [INF] Request completed.
+2025-08-15 15:58:29.108 -03:00 [INF] Request Initialized.
+2025-08-15 15:58:29.108 -03:00 [INF] Request completed.
+2025-08-15 16:01:28.581 -03:00 [INF] Request Initialized.
+2025-08-15 16:01:28.581 -03:00 [INF] Request completed.
+2025-08-15 16:02:25.017 -03:00 [INF] Request Initialized.
+2025-08-15 16:02:25.018 -03:00 [INF] Request completed.

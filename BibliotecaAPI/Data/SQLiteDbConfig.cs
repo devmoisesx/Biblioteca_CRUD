@@ -1,4 +1,5 @@
 using Microsoft.Data.Sqlite;
+using Serilog;
 
 namespace BibliotecaAPI.Data
 {
@@ -6,6 +7,11 @@ namespace BibliotecaAPI.Data
     {
         private readonly IConfiguration _configuration;
         private static string _connectionString;
+
+        private static readonly Serilog.ILogger log = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("logs.txt")
+            .CreateLogger();
 
         public SQLiteDbConfig(IConfiguration configuration)
         {
@@ -38,6 +44,7 @@ namespace BibliotecaAPI.Data
         // Inicia do Db
         public void InitializeDatabase()
         {
+            log.Information("Start database.");
             using (var connection = new SqliteConnection(GetConnectionString()))
             {
                 connection.Open();

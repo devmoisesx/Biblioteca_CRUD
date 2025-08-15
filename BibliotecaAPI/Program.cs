@@ -77,4 +77,4 @@ app.MapControllers();
 app.Run();
 
 log.Information("Aplicação Finalizada.");
-log.CloseAndFlush();
+Serilog.Log.CloseAndFlush();

@@ -3,6 +3,14 @@ using BibliotecaAPI.Interface;
 using BibliotecaAPI.Models;
 using BibliotecaAPI.Services;
 using BibliotecaAPI.Storages;
+using Serilog;
+
+using var log = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs.txt")
+    .CreateLogger();
+
+log.Information("Inicializando Aplicação.");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,3 +75,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+log.Information("Aplicação Finalizada.");
+log.CloseAndFlush();

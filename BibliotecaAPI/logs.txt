@@ -1,5 +1,0 @@
-2025-08-15 21:17:33.840 -03:00 [INF] Inicializando Aplicação.
-2025-08-15 21:17:44.058 -03:00 [INF] Aplicação Finalizada.
-15 21:17:37.431 -03:00 [INF] Get Client By Id request Initialized.
-2025-08-15 21:17:37.436 -03:00 [ERR] Get Client By Id request error: Erro: Invalid Client Id.
-2025-08-15 21:17:37.436 -03:00 [INF] Request completed.

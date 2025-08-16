@@ -11,12 +11,6 @@ namespace BibliotecaAPI.Data
     {
         private readonly IServiceGeneric<Catalog> _serviceCatalog;
 
-        
-        private static readonly Serilog.ILogger log = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File("logs.txt")
-            .CreateLogger();
-
         public CatalogController(IServiceGeneric<Catalog> serviceCatalog)
         {
             _serviceCatalog = serviceCatalog;
@@ -27,19 +21,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Post Catalog request Initialized.");
+                Log.Information("Post Catalog request Initialized.");
                 await _serviceCatalog.AddAsync(catalog);
-                log.Information("Post Catalog request completed successfully");
+                Log.Information("Post Catalog request completed successfully");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Post Catalog request error: {e.Message}");
+                Log.Error($"Post Catalog request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
             }
             finally
             {
-                log.Information("Post Catalog request completed.");
+                Log.Information("Post Catalog request completed.");
             }
         }
 
@@ -48,19 +42,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Get Catalog By Id request Initialized.");
+                Log.Information("Get Catalog By Id request Initialized.");
                 var catalog = await _serviceCatalog.GetByIdAsync(id);
-                log.Information("Get Catalog By Id request completed successfully");
+                Log.Information("Get Catalog By Id request completed successfully");
                 return Ok(catalog);
             }
             catch (Exception e)
             {
-                log.Error($"Get Catalog By Id request error: {e.Message}");
+                Log.Error($"Get Catalog By Id request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
             }
             finally
             {
-                log.Information("Get Catalog By Id request completed.");
+                Log.Information("Get Catalog By Id request completed.");
             }
         }
 
@@ -69,19 +63,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Get Catalog request Initialized.");
+                Log.Information("Get Catalog request Initialized.");
                 List<Catalog> catalogs = await _serviceCatalog.GetsAsync();
-                log.Information("Get Catalog request completed successfully.");
+                Log.Information("Get Catalog request completed successfully.");
                 return Ok(catalogs);
             }
             catch (Exception e)
             {
-                log.Error($"Get Catalog request error: {e.Message}");
+                Log.Error($"Get Catalog request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
             }
             finally
             {
-                log.Information("ReGet Catalog requestquest completed.");
+                Log.Information("ReGet Catalog requestquest completed.");
             }
         }
 
@@ -90,19 +84,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Update Catalog request Initialized.");
+                Log.Information("Update Catalog request Initialized.");
                 await _serviceCatalog.UpdateAsync(id, catalog);
-                log.Information("Update Catalog request completed successfully.");
+                Log.Information("Update Catalog request completed successfully.");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Update Catalog request error: {e.Message}");
+                Log.Error($"Update Catalog request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
             }
             finally
             {
-                log.Information("Update Catalog request completed.");
+                Log.Information("Update Catalog request completed.");
             }
         }
 
@@ -111,19 +105,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Delete Catalog request Initialized.");
+                Log.Information("Delete Catalog request Initialized.");
                 await _serviceCatalog.DeleteAsync(id);
-                log.Information("Delete Catalog request completed successfully.");
+                Log.Information("Delete Catalog request completed successfully.");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Delete Catalog request error: {e.Message}");
+                Log.Error($"Delete Catalog request error: {e.Message}");
                 return BadRequest($"Erro: {e.Message}");
             }
             finally
             {
-                log.Information("Delete Catalog request completed.");
+                Log.Information("Delete Catalog request completed.");
             }
         }
     }

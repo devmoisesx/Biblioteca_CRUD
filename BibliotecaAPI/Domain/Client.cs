@@ -1,3 +1,5 @@
+using Serilog;
+
 namespace BibliotecaAPI.Models
 {
     public class Client
@@ -24,7 +26,7 @@ namespace BibliotecaAPI.Models
             UpdatedAt = DateTime.Now.TimeOfDay;
             Name = name;
             Email = email;
-            Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
+            Phone = phone;
         }
 
         // Construtor usado para quando puxar dados do Db

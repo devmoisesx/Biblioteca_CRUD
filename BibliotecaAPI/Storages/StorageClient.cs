@@ -21,7 +21,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error pulling the Database Connection String.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }        }
 
         // Metodo para Adicionar uma nova linha na Tabela
@@ -30,6 +30,25 @@ try
             try
             {
                 Log.Information("Adding a new row to the table.");
+
+                if (!string.IsNullOrEmpty(client.Name) && char.IsDigit(client.Name[0]))
+                {
+                    Log.Error("Invalid name.");
+                    throw new ArgumentException("Invalid Client name.");
+                }
+
+                if (!string.IsNullOrEmpty(client.Email) && char.IsDigit(client.Email[0]))
+                {
+                    Log.Error("Invalid Client email.");
+                    throw new ArgumentException("Invalid Client email.");         
+                }
+
+                if (!string.IsNullOrEmpty(client.Phone) && char.IsDigit(client.Phone[0]))
+                {
+                    Log.Error("Invalid phone.");
+                    throw new ArgumentException("Invalid Client phone.");
+                }
+                
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -55,7 +74,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error adding a new row to the table.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -75,10 +94,10 @@ try
                     command.CommandText = @"
                         SELECT * FROM Client WHERE id = @Id;
                     ";
-
                     command.Parameters.AddWithValue("@Id", id);
 
                     Log.Information("Executing SQL command.");
+
                     await using (SqliteDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -91,8 +110,14 @@ try
                                 reader.GetString(4),
                                 reader.GetString(5)
                             );
+
                         }
                     }
+                }
+                if (getClient == null)
+                {
+                    Log.Error("Invalid Client Id.");
+                    throw new ArgumentException("Invalid Client Id.");
                 }
                 Log.Information("SQL command executed successfully.");
                 return getClient;
@@ -100,7 +125,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error adding a new row to the table.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -145,7 +170,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error adding a new row to the table.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -155,6 +180,25 @@ try
             try
             {
                 Log.Information("Updating a table row by Id.");
+
+                if (!string.IsNullOrEmpty(client.Name) && char.IsDigit(client.Name[0]))
+                {
+                    Log.Error("Invalid Client name.");
+                    throw new ArgumentException("Invalid Client name.");
+                }
+
+                if (!string.IsNullOrEmpty(client.Email) && char.IsDigit(client.Email[0]))
+                {
+                    Log.Error("Invalid Client email.");
+                    throw new ArgumentException("Invalid Client email.");
+                }
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Cliente ID.");
+                    throw new ArgumentException("Invalid Cliente ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -180,7 +224,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error updating a table row by Id.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -190,6 +234,13 @@ try
             try
             {
                 Log.Information("Deleting a row from the table by Id.");
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Client ID.");
+                    throw new ArgumentException("Invalid Client ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -211,7 +262,7 @@ try
             catch (Exception e)
             {
                 Log.Error("Error deleting a row from the table by Id.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
     }

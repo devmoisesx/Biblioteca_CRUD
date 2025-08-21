@@ -30,6 +30,19 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Adding a new row to the table.");
+
+                if (!int.IsEvenInteger(inventory.Condition))
+                {
+                    Log.Error("Invalid Condition.");
+                    throw new ArgumentException("Invalid inventory Condition.");
+                }
+
+                if (!int.IsEvenInteger(inventory.Is_Avaible))
+                {
+                    Log.Error("Invalid Is Avaible.");
+                    throw new ArgumentException("Invalid inventory Is Avaible.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -95,6 +108,11 @@ namespace BibliotecaAPI.Storages
                         }
                     }
                 }
+                if (getInventory == null)
+                {
+                    Log.Error("Invalid Inventory Id.");
+                    throw new ArgumentException("Invalid Inventory Id.");
+                }
                 Log.Information("SQL command executed successfully.");
                 return getInventory;
             }
@@ -156,6 +174,25 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Updating a table row by Id.");
+
+                if (!int.IsEvenInteger(inventory.Condition))
+                {
+                    Log.Error("Invalid Condition.");
+                    throw new ArgumentException("Invalid inventory Condition.");
+                }
+
+                if (!int.IsEvenInteger(inventory.Is_Avaible))
+                {
+                    Log.Error("Invalid Is Avaible.");
+                    throw new ArgumentException("Invalid inventory Is Avaible.");
+                }
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Inventory ID.");
+                    throw new ArgumentException("Invalid Inventory ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -190,6 +227,13 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Deleting a row from the table by Id.");
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Inventory ID.");
+                    throw new ArgumentException("Invalid Inventory ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();

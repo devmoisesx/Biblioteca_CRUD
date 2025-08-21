@@ -12,7 +12,7 @@ namespace BibliotecaAPI.Storages
 
         public StorageClient(SQLiteDbConfig dbConfig)
         {
-try
+            try
             {
                 Log.Information("Pulling the Database Connection String.");
                 _connectionString = dbConfig.GetConnectionString();     // Puxa a string de conexao do Db
@@ -22,7 +22,8 @@ try
             {
                 Log.Error("Error pulling the Database Connection String.");
                 throw new Exception(e.Message);
-            }        }
+            }   
+        }
 
         // Metodo para Adicionar uma nova linha na Tabela
         public async Task AddAsync(Client client)

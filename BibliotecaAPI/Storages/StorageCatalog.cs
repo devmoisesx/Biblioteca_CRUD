@@ -20,7 +20,7 @@ namespace BibliotecaAPI.Storages
             catch (Exception e)
             {
                 Log.Error("Error pulling the Database Connection String.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -30,6 +30,49 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Adding a new row to the table.");
+
+                if (!string.IsNullOrEmpty(catalog.Title) && char.IsDigit(catalog.Title[0]))
+                {
+                    Log.Error("Invalid Title.");
+                    throw new ArgumentException("Invalid Catalog Title.");
+                }
+
+                if (!string.IsNullOrEmpty(catalog.Author) && char.IsDigit(catalog.Author[0]))
+                {
+                    Log.Error("Invalid Catalog Author.");
+                    throw new ArgumentException("Invalid Catalog Author.");         
+                }
+
+                if (!int.IsEvenInteger(catalog.Year))
+                {
+                    Log.Error("Invalid Year.");
+                    throw new ArgumentException("Invalid Catalog Year.");
+                }
+
+                if (!int.IsEvenInteger(catalog.Rev))
+                {
+                    Log.Error("Invalid Rev.");
+                    throw new ArgumentException("Invalid Catalog Rev.");
+                }
+
+                if (!int.IsEvenInteger(catalog.Pages))
+                {
+                    Log.Error("Invalid Pages.");
+                    throw new ArgumentException("Invalid Catalog Pages.");
+                }
+
+                if (!string.IsNullOrEmpty(catalog.Synopsis) && char.IsDigit(catalog.Synopsis[0]))
+                {
+                    Log.Error("Invalid Catalog Synopsis.");
+                    throw new ArgumentException("Invalid Catalog Synopsis.");         
+                }
+
+                if (!int.IsEvenInteger(catalog.Is_Foreign))
+                {
+                    Log.Error("Invalid Is Foreign.");
+                    throw new ArgumentException("Invalid Catalog Is Foreign.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -62,7 +105,7 @@ namespace BibliotecaAPI.Storages
             catch (Exception e)
             {
                 Log.Error("Error adding a new row to the table.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -107,13 +150,18 @@ namespace BibliotecaAPI.Storages
                         }
                     }
                 }
+                if (getCatalog == null)
+                {
+                    Log.Error("Invalid Catalog Id.");
+                    throw new ArgumentException("Invalid Catalog Id.");
+                }
                 Log.Information("SQL command executed successfully.");
                 return getCatalog;
             }
             catch (Exception e)
             {
                 Log.Error("Error getting a row from the table by id.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -164,7 +212,7 @@ namespace BibliotecaAPI.Storages
             catch (Exception e)
             {
                 Log.Error("Error getting all Data from the table.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -174,6 +222,55 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Updating a table row by Id.");
+
+                if (!string.IsNullOrEmpty(catalog.Title) && char.IsDigit(catalog.Title[0]))
+                {
+                    Log.Error("Invalid Title.");
+                    throw new ArgumentException("Invalid Catalog Title.");
+                }
+
+                if (!string.IsNullOrEmpty(catalog.Author) && char.IsDigit(catalog.Author[0]))
+                {
+                    Log.Error("Invalid Catalog Author.");
+                    throw new ArgumentException("Invalid Catalog Author.");         
+                }
+
+                if (!int.IsEvenInteger(catalog.Year))
+                {
+                    Log.Error("Invalid Year.");
+                    throw new ArgumentException("Invalid Catalog Year.");
+                }
+
+                if (!int.IsEvenInteger(catalog.Rev))
+                {
+                    Log.Error("Invalid Rev.");
+                    throw new ArgumentException("Invalid Catalog Rev.");
+                }
+
+                if (!int.IsEvenInteger(catalog.Pages))
+                {
+                    Log.Error("Invalid Pages.");
+                    throw new ArgumentException("Invalid Catalog Pages.");
+                }
+
+                if (!string.IsNullOrEmpty(catalog.Synopsis) && char.IsDigit(catalog.Synopsis[0]))
+                {
+                    Log.Error("Invalid Catalog Synopsis.");
+                    throw new ArgumentException("Invalid Catalog Synopsis.");         
+                }
+
+                if (!int.IsEvenInteger(catalog.Is_Foreign))
+                {
+                    Log.Error("Invalid Is Foreign.");
+                    throw new ArgumentException("Invalid Catalog Is Foreign.");
+                }
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Catalog ID.");
+                    throw new ArgumentException("Invalid Catalog ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -204,7 +301,7 @@ namespace BibliotecaAPI.Storages
             catch (Exception e)
             {
                 Log.Error("Error updating a table row by Id.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 
@@ -214,6 +311,13 @@ namespace BibliotecaAPI.Storages
             try
             {
                 Log.Information("Deleting a row from the table by Id.");
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Log.Error("Invalid Catalog ID.");
+                    throw new ArgumentException("Invalid Catalog ID.");
+                }
+
                 await using (var connection = new SqliteConnection(_connectionString))
                 {
                     await connection.OpenAsync();
@@ -235,7 +339,7 @@ namespace BibliotecaAPI.Storages
             catch (Exception e)
             {
                 Log.Error("Error deleting a row from the table by Id.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
     }

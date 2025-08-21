@@ -69,9 +69,9 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
-                // Cria a tabela Catalog
+                // Cria a tabela Book
                 command.CommandText = @"
-                    CREATE TABLE IF NOT EXISTS Catalog (
+                    CREATE TABLE IF NOT EXISTS Book (
                         id char(13) PRIMARY KEY,
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
@@ -103,14 +103,14 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
-                // Cria a tabela CatalogGenre
+                // Cria a tabela BookGenre
                 command.CommandText = @"
-                    CREATE TABLE IF NOT EXISTS CatalogGenre (
+                    CREATE TABLE IF NOT EXISTS BookGenre (
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        catalog_id char(13),
+                        book_id char(13),
                         genrer_id INTEGER,
-                        FOREIGN KEY (catalog_id) REFERENCES Catalog(id),
+                        FOREIGN KEY (book_id) REFERENCES Book(id),
                         FOREIGN KEY (genrer_id) REFERENCES Genrer(id)
                     );
                     
@@ -143,6 +143,25 @@ namespace BibliotecaAPI.Data
                 ";
                 command.ExecuteNonQuery();
 
+                // Cria a tabela Item
+                command.CommandText = @"
+                    CREATE TABLE IF NOT EXISTS Item (
+                        id char(13) PRIMARY KEY,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+
+                        rented INTEGER NOT NULL,
+                        returned INTEGER,
+                        date_rented TEXT NOT NULL,
+                        rate_returned TEXT,
+                        book_id varchar NOT NULL,
+                        client_id varchar NOT NULL,
+                        FOREIGN KEY (book_id) REFERENCES Book(id),
+                        FOREIGN KEY (client_id) REFERENCES Client(id)
+                    );
+                ";
+                command.ExecuteNonQuery();
+
                 // Cria a tabela Inventory
                 command.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Inventory (
@@ -152,8 +171,8 @@ namespace BibliotecaAPI.Data
 
                         condition INTEGER NOT NULL DEFAULT 100,
                         is_available INTEGER NOT NULL DEFAULT 1,
-                        catalog_id char(13),
-                        FOREIGN KEY (catalog_id) REFERENCES Catalog(id)
+                        book_id char(13),
+                        FOREIGN KEY (book_id) REFERENCES Book(id)
                     );
                     
                 ";

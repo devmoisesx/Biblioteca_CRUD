@@ -5,8 +5,8 @@ public class Loan
     public TimeSpan UpdatedAt { get; set; }
     public string Client_Id { get; set; }
     public string Inventory_Id { get; set; }
-    public int Days_To_Expire { get; set; }
-    public DateTime Returned_At { get; set; }
+    public string Days_To_Expire { get; set; }
+    public string Returned_At { get; set; }
 
     public Loan()
     {
@@ -16,7 +16,7 @@ public class Loan
     }
 
     // Construtor para quando instanciar a classe
-    public Loan(string client_id, string inventory_id, int days_to_expire, DateTime returned_at)
+    public Loan(string client_id, string inventory_id, string days_to_expire, string returned_at)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = DateTime.Now.TimeOfDay;
@@ -28,7 +28,7 @@ public class Loan
     }
 
     // Construtor usado para quando puxar dados do Db
-    public Loan(string id, TimeSpan createdAt, TimeSpan updatedAt, string client_id, string inventory_id, int days_to_expire, DateTime returned_at)
+    public Loan(string id, TimeSpan createdAt, TimeSpan updatedAt, string client_id, string inventory_id, string days_to_expire, string returned_at)
     {
         Id = id;
         CreatedAt = createdAt;

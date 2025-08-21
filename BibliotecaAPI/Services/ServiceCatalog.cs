@@ -5,7 +5,7 @@ using Serilog;
 
 namespace BibliotecaAPI.Services
 {
-    public class ServiceCatalog : IServiceGeneric<Catalog>
+    public class ServiceCatalog : IServiceGeneric<Book>
     {
         private readonly StorageCatalog _storage;
 
@@ -24,13 +24,13 @@ namespace BibliotecaAPI.Services
             }
         }
 
-        // Metodo para adicionar um novo Catalog
-        public async Task AddAsync(Catalog catalog)
+        // Metodo para adicionar um novo Book
+        public async Task AddAsync(Book book)
         {
             try
             {
                 Log.Information("Method AddAsync of ServiceCatalog requested.");
-                await _storage.AddAsync(catalog);
+                await _storage.AddAsync(book);
                 Log.Information("Method AddAsync of ServiceCatalog completed sucessfully.");
             }
             catch (Exception e)
@@ -40,8 +40,8 @@ namespace BibliotecaAPI.Services
             }
         }
 
-        // Metodo para puxar do Db o Catalog especifico pelo Id
-        public async Task<Catalog> GetByIdAsync(string id)
+        // Metodo para puxar do Db o Book especifico pelo Id
+        public async Task<Book> GetByIdAsync(string id)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace BibliotecaAPI.Services
         }
 
         // Metodo para puxar do Db todos os Catalogs
-        public async Task<List<Catalog>> GetsAsync()
+        public async Task<List<Book>> GetsAsync()
         {
             try
             {
@@ -74,13 +74,13 @@ namespace BibliotecaAPI.Services
             }
         }
 
-        // Metodo para atualizar uma Linha da tabela Catalog
-        public async Task UpdateAsync(string id, Catalog catalog)
+        // Metodo para atualizar uma Linha da tabela Book
+        public async Task UpdateAsync(string id, Book book)
         {
             try
             {
                 Log.Information("Method UpdateAsync of ServiceCatalog requested.");
-                await _storage.UpdateAsync(id, catalog);
+                await _storage.UpdateAsync(id, book);
                 Log.Information("Method UpdateAsync of ServiceCatalog completed sucessfully.");
             }
             catch (Exception e)
@@ -90,7 +90,7 @@ namespace BibliotecaAPI.Services
             }
         }
 
-        // Metodo para deletar uma Linha da tabela Catalog pelo id
+        // Metodo para deletar uma Linha da tabela Book pelo id
         public async Task DeleteAsync(string id)
         {
             try

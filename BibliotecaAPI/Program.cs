@@ -41,7 +41,7 @@ builder.Services.AddScoped<StorageCatalog>();
 // Injeção de Dependência, Cria uma nova instância para cada solicitação HTTP
 builder.Services.AddScoped<IServiceGeneric<Client>, ServiceClient>();
 builder.Services.AddScoped<ServiceClient>();
-builder.Services.AddScoped<IServiceGeneric<Catalog>, ServiceCatalog>();
+builder.Services.AddScoped<IServiceGeneric<Book>, ServiceCatalog>();
 builder.Services.AddScoped<ServiceCatalog>();
 
 var app = builder.Build();

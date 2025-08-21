@@ -1,5 +1,3 @@
-using Serilog;
-
 namespace BibliotecaAPI.Models
 {
     public class Client
@@ -39,7 +37,5 @@ namespace BibliotecaAPI.Models
             Email = email;
             Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
         }
-
-        
     }
 }

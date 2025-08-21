@@ -1,4 +1,4 @@
-public class Catalog
+public class Book
 {
     public string Id { get; set; }
     public TimeSpan CreatedAt { get; set; }
@@ -13,7 +13,8 @@ public class Catalog
     public int Language_Id { get; set; }
     public int Is_Foreign { get; set; }
 
-    public Catalog()
+    public Book
+()
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = DateTime.Now.TimeOfDay;
@@ -21,7 +22,8 @@ public class Catalog
     }
 
     // Construtor para quando instanciar a classe
-    public Catalog(string title, string author, int year, int rev, int publisher_id, int pages, string synopsis, int language_id, int is_foreign)
+    public Book
+(string title, string author, int year, int rev, int publisher_id, int pages, string synopsis, int language_id, int is_foreign)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = DateTime.Now.TimeOfDay;
@@ -38,7 +40,8 @@ public class Catalog
     }
 
     // Construtor usado para quando puxar dados do Db
-    public Catalog(string id, TimeSpan createdAt, TimeSpan updatedAt, string title, string author, int year, int rev, int publisher_id, int pages, string synopsis, int language_id, int is_foreign)
+    public Book
+(string id, TimeSpan createdAt, TimeSpan updatedAt, string title, string author, int year, int rev, int publisher_id, int pages, string synopsis, int language_id, int is_foreign)
     {
         Id = id;
         CreatedAt = createdAt;

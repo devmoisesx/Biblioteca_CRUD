@@ -19,7 +19,7 @@ namespace BibliotecaAPI.Services
             catch (Exception e)
             {
                 Log.Error("Error creating Storage instance.");
-                throw new Exception($"Erro: {e.Message}");
+                throw new Exception(e.Message);
             }
         }
 

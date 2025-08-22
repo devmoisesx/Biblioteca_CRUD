@@ -34,7 +34,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Post Client request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -55,7 +55,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Get Client By Id request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -76,7 +76,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Get Clients request error: {e.Message}.");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -97,7 +97,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Update Client request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -118,7 +118,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Delete Client request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {

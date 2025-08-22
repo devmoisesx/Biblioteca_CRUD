@@ -29,7 +29,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 Log.Error($"Post Book request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -50,7 +50,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 Log.Error($"Get Book By Id request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -71,7 +71,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 Log.Error($"Get Book request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -92,7 +92,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 Log.Error($"Update Book request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -113,7 +113,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 Log.Error($"Delete Book request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {

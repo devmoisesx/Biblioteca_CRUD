@@ -90,7 +90,7 @@ namespace BibliotecaAPI.Storages
                     throw new ArgumentException("Invalid Loan Days To Expire.");
                 }
 
-                if (!string.IsNullOrEmpty(loan.Returned_At))
+                if (!string.IsNullOrEmpty(loan.Returned_At.ToString()))
                 {
                     Log.Error("Invalid Loan Returned At.");
                     throw new ArgumentException("Invalid Loan Returned At.");
@@ -109,8 +109,8 @@ namespace BibliotecaAPI.Storages
                     var command = connection.CreateCommand();
 
                     command.CommandText = @"
-                        UPDATE Client
-                        SET updated_at = @Id, updated_at = @UpdatedAt, client_id = @Client_Id, inventory_id = @Inventory_Id, days_to_expire = @Days_To_Expire, returned_at = @Returned_At WHERE id = @Id;
+                        UPDATE Loan
+                        SET updated_at = updated_at = @UpdatedAt, client_id = @Client_Id, inventory_id = @Inventory_Id, days_to_expire = @Days_To_Expire, returned_at = @Returned_At WHERE id = @Id;
                     ";
 
                     command.Parameters.AddWithValue("@Id", id);
@@ -118,7 +118,7 @@ namespace BibliotecaAPI.Storages
                     command.Parameters.AddWithValue("@Client_Id", loan.Client_Id);
                     command.Parameters.AddWithValue("@Inventory_Id", loan.Inventory_Id);
                     command.Parameters.AddWithValue("@Days_To_Expire", loan.Days_To_Expire);
-                    command.Parameters.AddWithValue("@Returned_At", loan.Returned_At);
+                    command.Parameters.AddWithValue("@Returned_At", DateTime.Now.TimeOfDay);
 
                     Log.Information("Executing SQL command.");
                     await command.ExecuteNonQueryAsync();
@@ -171,7 +171,7 @@ namespace BibliotecaAPI.Storages
                                 reader.GetString(3),
                                 reader.GetString(4),
                                 reader.GetString(5),
-                                reader.GetString(6)
+                                reader.GetTimeSpan(6)
                             );
                             listLoans.Add(getLoan);
                         }
@@ -228,7 +228,7 @@ namespace BibliotecaAPI.Storages
                                 reader.GetString(3),
                                 reader.GetString(4),
                                 reader.GetString(5),
-                                reader.GetString(6)
+                                reader.GetTimeSpan(6)
                             );
                             listLoans.Add(getLoan);
                         }
@@ -279,7 +279,7 @@ namespace BibliotecaAPI.Storages
                                 reader.GetString(3),
                                 reader.GetString(4),
                                 reader.GetString(5),
-                                reader.GetString(6)
+                                reader.GetTimeSpan(6)
                             );
                             listLoans.Add(getLoan);
                         }

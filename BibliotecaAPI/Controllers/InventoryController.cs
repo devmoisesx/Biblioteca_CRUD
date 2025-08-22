@@ -33,7 +33,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Post Inventory request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -54,7 +54,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Get Inventory By Id request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -75,7 +75,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Get Inventorys request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -96,7 +96,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Update Inventory request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {
@@ -117,7 +117,7 @@ namespace BibliotecaAPI.Data
             catch (Exception e)
             {
                 log.Error($"Delete Inventory request error: {e.Message}");
-                return BadRequest($"Erro: {e.Message}");
+                return BadRequest(e.Message);
             }
             finally
             {

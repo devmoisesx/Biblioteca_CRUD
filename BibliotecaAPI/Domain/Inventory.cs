@@ -5,7 +5,7 @@ public class Inventory
     public TimeSpan UpdatedAt { get; set; }
     public string Book_Id { get; set; }
     public int Condition { get; set; }
-    public int Is_Avaible { get; set; }
+    public int Is_Available { get; set; }
 
     public Inventory()
     {
@@ -15,24 +15,24 @@ public class Inventory
     }
 
     // Construtor para quando instanciar a classe
-    public Inventory(string book_id, int condition, int is_Avaible)
+    public Inventory(string book_id, int condition, int is_available)
     {
         Id = Ulid.NewUlid().ToString();
         CreatedAt = DateTime.Now.TimeOfDay;
         UpdatedAt = DateTime.Now.TimeOfDay;
         Book_Id = book_id;
         Condition = condition;
-        Is_Avaible = is_Avaible;
+        Is_Available = is_available;
     }
 
     // Construtor usado para quando puxar dados do Db
-    public Inventory(string id, TimeSpan createdAt, TimeSpan updatedAt, string book_id, int condition, int is_Avaible)
+    public Inventory(string id, TimeSpan createdAt, TimeSpan updatedAt, string book_id, int condition, int is_available)
     {
         Id = id;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Book_Id = book_id;
         Condition = condition;
-        Is_Avaible = is_Avaible;
+        Is_Available = is_available;
     }
 }

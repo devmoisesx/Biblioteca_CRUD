@@ -44,7 +44,7 @@ namespace BibliotecaAPI.Storages
                     throw new ArgumentException("Invalid Client email.");         
                 }
 
-                if (!string.IsNullOrEmpty(client.Phone) && char.IsDigit(client.Phone[0]))
+                if (!string.IsNullOrEmpty(client.Phone) && !char.IsDigit(client.Phone[0]))
                 {
                     Log.Error("Invalid phone.");
                     throw new ArgumentException("Invalid Client phone.");

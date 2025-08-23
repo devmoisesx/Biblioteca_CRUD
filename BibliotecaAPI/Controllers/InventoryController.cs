@@ -10,11 +10,6 @@ namespace BibliotecaAPI.Data
     {
         private readonly IServiceGeneric<Inventory> _serviceInventory;
 
-        private static readonly Serilog.ILogger log = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File("logs.txt")
-            .CreateLogger();
-
         public InventoryController(IServiceGeneric<Inventory> serviceInventory)
         {
             _serviceInventory = serviceInventory;
@@ -25,19 +20,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Post Inventory request Initialized.");
+                Log.Information("Post Inventory request Initialized.");
                 await _serviceInventory.AddAsync(inventory);
-                log.Information("Post Inventory request completed successfully");
+                Log.Information("Post Inventory request completed successfully");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Post Inventory request error: {e.Message}");
+                Log.Error($"Post Inventory request error: {e.Message}");
                 return BadRequest(e.Message);
             }
             finally
             {
-                log.Information("Post Inventory request completed.");
+                Log.Information("Post Inventory request completed.");
             }
         }
 
@@ -46,19 +41,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Get Inventory By Id request Initialized.");
+                Log.Information("Get Inventory By Id request Initialized.");
                 var inventory = await _serviceInventory.GetByIdAsync(id);
-                log.Information("Get Inventory By Id request completed successfully");
+                Log.Information("Get Inventory By Id request completed successfully");
                 return Ok(inventory);
             }
             catch (Exception e)
             {
-                log.Error($"Get Inventory By Id request error: {e.Message}");
+                Log.Error($"Get Inventory By Id request error: {e.Message}");
                 return BadRequest(e.Message);
             }
             finally
             {
-                log.Information("Get Inventory By Id request completed.");
+                Log.Information("Get Inventory By Id request completed.");
             }
         }
 
@@ -67,19 +62,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Get Inventorys request Initialized.");
+                Log.Information("Get Inventorys request Initialized.");
                 List<Inventory> inventorys = await _serviceInventory.GetsAsync();
-                log.Information("Get Inventorys request completed successfully");
+                Log.Information("Get Inventorys request completed successfully");
                 return Ok(inventorys);
             }
             catch (Exception e)
             {
-                log.Error($"Get Inventorys request error: {e.Message}");
+                Log.Error($"Get Inventorys request error: {e.Message}");
                 return BadRequest(e.Message);
             }
             finally
             {
-                log.Information("Get Inventorys request completed.");
+                Log.Information("Get Inventorys request completed.");
             }
         }
 
@@ -88,19 +83,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Update Inventory request Initialized.");
+                Log.Information("Update Inventory request Initialized.");
                 await _serviceInventory.UpdateAsync(id, inventory);
-                log.Information("Update Inventory request completed successfully");
+                Log.Information("Update Inventory request completed successfully");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Update Inventory request error: {e.Message}");
+                Log.Error($"Update Inventory request error: {e.Message}");
                 return BadRequest(e.Message);
             }
             finally
             {
-                log.Information("Update Inventory request completed.");
+                Log.Information("Update Inventory request completed.");
             }
         }
 
@@ -109,19 +104,19 @@ namespace BibliotecaAPI.Data
         {
             try
             {
-                log.Information("Delete Inventory request Initialized.");
+                Log.Information("Delete Inventory request Initialized.");
                 await _serviceInventory.DeleteAsync(id);
-                log.Information("Delete Inventory request completed successfully");
+                Log.Information("Delete Inventory request completed successfully");
                 return Ok();
             }
             catch (Exception e)
             {
-                log.Error($"Delete Inventory request error: {e.Message}");
+                Log.Error($"Delete Inventory request error: {e.Message}");
                 return BadRequest(e.Message);
             }
             finally
             {
-                log.Information("Delete Inventory request completed.");
+                Log.Information("Delete Inventory request completed.");
             }
         }
     }

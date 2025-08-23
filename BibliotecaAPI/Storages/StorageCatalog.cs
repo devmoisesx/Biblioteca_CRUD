@@ -43,19 +43,19 @@ namespace BibliotecaAPI.Storages
                     throw new ArgumentException("Invalid Book Author.");         
                 }
 
-                if (!int.IsEvenInteger(book.Year))
+                if (book.Year.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Year.");
                     throw new ArgumentException("Invalid Book Year.");
                 }
 
-                if (!int.IsEvenInteger(book.Rev))
+                if (book.Rev.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Rev.");
                     throw new ArgumentException("Invalid Book Rev.");
                 }
 
-                if (!int.IsEvenInteger(book.Pages))
+                if (book.Pages.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Pages.");
                     throw new ArgumentException("Invalid Book Pages.");
@@ -67,7 +67,7 @@ namespace BibliotecaAPI.Storages
                     throw new ArgumentException("Invalid Book Synopsis.");         
                 }
 
-                if (!int.IsEvenInteger(book.Is_Foreign))
+                if (book.Is_Foreign.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Is Foreign.");
                     throw new ArgumentException("Invalid Book Is Foreign.");

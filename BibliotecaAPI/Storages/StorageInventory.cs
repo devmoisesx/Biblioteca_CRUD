@@ -31,13 +31,13 @@ namespace BibliotecaAPI.Storages
             {
                 Log.Information("Adding a new row to the table.");
 
-                if (!int.IsEvenInteger(inventory.Condition))
+                if (inventory.Condition.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Condition.");
                     throw new ArgumentException("Invalid inventory Condition.");
                 }
 
-                if (!int.IsEvenInteger(inventory.Is_Avaible))
+                if (inventory.Is_Available.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Is Avaible.");
                     throw new ArgumentException("Invalid inventory Is Avaible.");
@@ -50,16 +50,16 @@ namespace BibliotecaAPI.Storages
                     var command = connection.CreateCommand();
 
                     command.CommandText = @"
-                        INSERT INTO Inventory (id, created_at, updated_at, condition, is_avaible, catalog_id) 
-                        VALUES (@Id, @CreatedAt, @UpdatedAt, @Condition, @Is_Avaible, @Catalog_Id);
+                        INSERT INTO Inventory (id, created_at, updated_at, condition, is_available, book_id) 
+                        VALUES (@Id, @CreatedAt, @UpdatedAt, @Condition, @Is_Available, @Book_Id);
                     ";
 
                     command.Parameters.AddWithValue("@Id", Ulid.NewUlid().ToString());
                     command.Parameters.AddWithValue("@CreatedAt", DateTime.Now.TimeOfDay);
                     command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
                     command.Parameters.AddWithValue("@Condition", inventory.Condition);
-                    command.Parameters.AddWithValue("@Is_Avaible", inventory.Is_Avaible);
-                    command.Parameters.AddWithValue("@Catalog_Id", inventory.Catalog_Id);
+                    command.Parameters.AddWithValue("@Is_Available", inventory.Is_Available);
+                    command.Parameters.AddWithValue("@Book_Id", inventory.Book_Id);
 
                     Log.Information("Executing SQL command in the Database.");
                     command.ExecuteNonQuery();
@@ -175,13 +175,13 @@ namespace BibliotecaAPI.Storages
             {
                 Log.Information("Updating a table row by Id.");
 
-                if (!int.IsEvenInteger(inventory.Condition))
+                if (inventory.Condition.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Condition.");
                     throw new ArgumentException("Invalid inventory Condition.");
                 }
 
-                if (!int.IsEvenInteger(inventory.Is_Avaible))
+                if (inventory.Is_Available.GetType() != typeof(int))
                 {
                     Log.Error("Invalid Is Avaible.");
                     throw new ArgumentException("Invalid inventory Is Avaible.");
@@ -200,14 +200,14 @@ namespace BibliotecaAPI.Storages
                     var command = connection.CreateCommand();
                     command.CommandText = @"
                         UPDATE Inventory
-                        SET updated_at = @UpdatedAt, condition = @Condition, is_avaible = @Is_Avaible, catalog_id = @Catalog_Id WHERE id = @Id;;
+                        SET updated_at = @UpdatedAt, condition = @Condition, is_available = @Is_Available, book_id = @Book_Id WHERE id = @Id;;
                     ";
 
                     command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
                     command.Parameters.AddWithValue("@Condition", inventory.Condition);
-                    command.Parameters.AddWithValue("@Is_Avaible", inventory.Is_Avaible);
-                    command.Parameters.AddWithValue("@Catalog_Id", inventory.Catalog_Id);
+                    command.Parameters.AddWithValue("@Is_Available", inventory.Is_Available);
+                    command.Parameters.AddWithValue("@Book_Id", inventory.Book_Id);
 
                     Log.Information("Executing SQL command.");
                     await command.ExecuteNonQueryAsync();

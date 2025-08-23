@@ -187,8 +187,8 @@ namespace BibliotecaAPI.Data
 
                         days_to_expire INTEGER NOT NULL DEFAULT 30,
                         returned_at TIMESTAMP DEFAULT NULL,
-                        client_id char(26),
-                        inventory_id char(26),
+                        client_id char(13),
+                        inventory_id char(13),
                         FOREIGN KEY (client_id) REFERENCES Client(id),
                         FOREIGN KEY (inventory_id) REFERENCES Inventory(id)
                     );

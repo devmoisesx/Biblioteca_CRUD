@@ -37,12 +37,18 @@ builder.Services.AddSingleton<SQLiteDbConfig>();
 
 builder.Services.AddScoped<StorageClient>();
 builder.Services.AddScoped<StorageCatalog>();
+builder.Services.AddScoped<StorageInventory>();
+builder.Services.AddScoped<StorageLoan>();
 
 // Injeção de Dependência, Cria uma nova instância para cada solicitação HTTP
 builder.Services.AddScoped<IServiceGeneric<Client>, ServiceClient>();
 builder.Services.AddScoped<ServiceClient>();
 builder.Services.AddScoped<IServiceGeneric<Book>, ServiceCatalog>();
 builder.Services.AddScoped<ServiceCatalog>();
+builder.Services.AddScoped<IServiceGeneric<Inventory>, ServiceInventory>();
+builder.Services.AddScoped<ServiceInventory>();
+// builder.Services.AddScoped<IServiceGeneric<Loan>, ServiceLoan>();
+builder.Services.AddScoped<ServiceLoan>();
 
 var app = builder.Build();
 

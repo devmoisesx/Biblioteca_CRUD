@@ -30,17 +30,17 @@ namespace BibliotecaAPI.Storages
             {
                 Log.Information("Adding a new row to the table.");
 
-                if (!string.IsNullOrEmpty(loan.Days_To_Expire))
+                if (string.IsNullOrEmpty(loan.Days_To_Expire))
                 {
                     Log.Error("Invalid Loan Days To Expire.");
                     throw new ArgumentException("Invalid Loan Days To Expire.");
                 }
-                if (!string.IsNullOrEmpty(loan.Client_Id))
+                if (string.IsNullOrEmpty(loan.Client_Id))
                 {
                     Log.Error("Invalid Loan Client_Id.");
                     throw new ArgumentException("Invalid Loan Client_Id.");
                 }
-                if (!string.IsNullOrEmpty(loan.Inventory_Id))
+                if (string.IsNullOrEmpty(loan.Inventory_Id))
                 {
                     Log.Error("Invalid Loan Inventory_Id.");
                     throw new ArgumentException("Invalid Loan Inventory_Id.");
@@ -53,16 +53,16 @@ namespace BibliotecaAPI.Storages
 
                     command.CommandText = @"
                         INSERT INTO Loan (id, created_at, updated_at, days_to_expire, returned_at, client_id, inventory_id) 
-                        VALUES (@Id, @CreatedAt, @UpdatedAt, @Client_Id, @Inventory_Id, @Days_To_Expire, @Returned_At);
+                        VALUES (@Id, @CreatedAt, @UpdatedAt, @Days_To_Expire, @Returned_At, @Client_Id, @Inventory_Id);
                     ";
 
                     command.Parameters.AddWithValue("@Id", Ulid.NewUlid().ToString());
                     command.Parameters.AddWithValue("@CreatedAt", DateTime.Now.TimeOfDay);
                     command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
-                    command.Parameters.AddWithValue("@Client_Id", loan.Client_Id);
-                    command.Parameters.AddWithValue("@Inventory_Id", loan.Inventory_Id);
                     command.Parameters.AddWithValue("@Days_To_Expire", loan.Days_To_Expire);
                     command.Parameters.AddWithValue("@Returned_At", loan.Returned_At);
+                    command.Parameters.AddWithValue("@Client_Id", loan.Client_Id);
+                    command.Parameters.AddWithValue("@Inventory_Id", loan.Inventory_Id);
 
                     Log.Information("Executing SQL command in the Database.");
                     command.ExecuteNonQuery();
@@ -84,19 +84,19 @@ namespace BibliotecaAPI.Storages
                 // Log.Information("Method UpdateReturnAsync of ServiceLoan requested.");
                 Log.Information("Updating a table row by Id.");
 
-                if (!string.IsNullOrEmpty(loan.Days_To_Expire))
+                if (string.IsNullOrEmpty(loan.Days_To_Expire))
                 {
                     Log.Error("Invalid Loan Days To Expire.");
                     throw new ArgumentException("Invalid Loan Days To Expire.");
                 }
 
-                if (!string.IsNullOrEmpty(loan.Returned_At.ToString()))
-                {
-                    Log.Error("Invalid Loan Returned At.");
-                    throw new ArgumentException("Invalid Loan Returned At.");
-                }
+                // if (!string.IsNullOrEmpty(loan.Returned_At.ToString()))
+                // {
+                //     Log.Error("Invalid Loan Returned At.");
+                //     throw new ArgumentException("Invalid Loan Returned At.");
+                // }
 
-                if (!string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id))
                 {
                     Log.Error("Invalid Loan ID.");
                     throw new ArgumentException("Invalid Loan ID.");
@@ -110,15 +110,15 @@ namespace BibliotecaAPI.Storages
 
                     command.CommandText = @"
                         UPDATE Loan
-                        SET updated_at = updated_at = @UpdatedAt, client_id = @Client_Id, inventory_id = @Inventory_Id, days_to_expire = @Days_To_Expire, returned_at = @Returned_At WHERE id = @Id;
+                        SET updated_at = @UpdatedAt, days_to_expire = @Days_To_Expire, returned_at = @Returned_At, client_id = @Client_Id, inventory_id = @Inventory_Id WHERE id = @Id;
                     ";
 
                     command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now.TimeOfDay);
-                    command.Parameters.AddWithValue("@Client_Id", loan.Client_Id);
-                    command.Parameters.AddWithValue("@Inventory_Id", loan.Inventory_Id);
                     command.Parameters.AddWithValue("@Days_To_Expire", loan.Days_To_Expire);
                     command.Parameters.AddWithValue("@Returned_At", DateTime.Now.TimeOfDay);
+                    command.Parameters.AddWithValue("@Client_Id", loan.Client_Id);
+                    command.Parameters.AddWithValue("@Inventory_Id", loan.Inventory_Id);
 
                     Log.Information("Executing SQL command.");
                     await command.ExecuteNonQueryAsync();
@@ -135,7 +135,7 @@ namespace BibliotecaAPI.Storages
         }
 
         // Reports
-        public async Task<List<Loan>> GetLateByBookIdAsync(string book_id)
+        public async Task<List<Loan>> GetLateByBookIdAsync(string inventory_id)
         {
             try
             {
@@ -154,9 +154,9 @@ namespace BibliotecaAPI.Storages
                     var command = connection.CreateCommand();
 
                     command.CommandText = @"
-                        SELECT * FROM Loan WHERE book_id = @Id;
+                        SELECT * FROM Loan WHERE inventory_id = @Id;
                     ";
-                    command.Parameters.AddWithValue("@Id", book_id);
+                    command.Parameters.AddWithValue("@Id", inventory_id);
 
                     Log.Information("Executing SQL command.");
 
@@ -169,9 +169,9 @@ namespace BibliotecaAPI.Storages
                                 reader.GetTimeSpan(1),
                                 reader.GetTimeSpan(2),
                                 reader.GetString(3),
-                                reader.GetString(4),
+                                reader.GetTimeSpan(4),
                                 reader.GetString(5),
-                                reader.GetTimeSpan(6)
+                                reader.GetString(6)
                             );
                             listLoans.Add(getLoan);
                         }
@@ -179,8 +179,8 @@ namespace BibliotecaAPI.Storages
                 }
                 if (listLoans == null)
                 {
-                    Log.Error("Invalid Book Id.");
-                    throw new ArgumentException("Invalid Book Id.");
+                    Log.Error("Invalid Inventory Id.");
+                    throw new ArgumentException("Invalid Inventory Id.");
                 }
                 Log.Information("SQL command executed successfully.");
                 return listLoans;
@@ -226,9 +226,9 @@ namespace BibliotecaAPI.Storages
                                 reader.GetTimeSpan(1),
                                 reader.GetTimeSpan(2),
                                 reader.GetString(3),
-                                reader.GetString(4),
+                                reader.GetTimeSpan(4),
                                 reader.GetString(5),
-                                reader.GetTimeSpan(6)
+                                reader.GetString(6)
                             );
                             listLoans.Add(getLoan);
                         }
@@ -277,9 +277,9 @@ namespace BibliotecaAPI.Storages
                                 reader.GetTimeSpan(1),
                                 reader.GetTimeSpan(2),
                                 reader.GetString(3),
-                                reader.GetString(4),
+                                reader.GetTimeSpan(4),
                                 reader.GetString(5),
-                                reader.GetTimeSpan(6)
+                                reader.GetString(6)
                             );
                             listLoans.Add(getLoan);
                         }
